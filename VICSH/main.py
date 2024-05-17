@@ -42,14 +42,16 @@ from torchvision import transforms
 from dataset import ImageFolder
 from loss import RateDistortionLoss
 from optimizers import net_aux_optimizer
-from utils import bmshj2018_factorized, bmshj2018_factorized_relu, bmshj2018_hyperprior, minnen2020, minnen2020_LRP
+from utils import bmshj2018_factorized, bmshj2018_factorized_relu, bmshj2018_hyperprior, minnen2020, minnen2020_LRP, mbt2018_mean, mbt2018
 
 image_models = {
     "bmshj2018-factorized": bmshj2018_factorized,
     "bmshj2018-factorized-relu": bmshj2018_factorized_relu,
-    "bmshj2018-hyperprior": bmshj2018_hyperprior
-    # "minnen2020": minnen2020,
-    # "minnen2020_LRP": minnen2020_LRP
+    "bmshj2018-hyperprior": bmshj2018_hyperprior,
+    "minnen2020": minnen2020,
+    "minnen2020_LRP": minnen2020_LRP,
+    "mbt2018_mean": mbt2018_mean,
+    "mbt2018": mbt2018,
 }
 
 
@@ -120,7 +122,7 @@ def train_one_epoch(
                 f"{i*len(d)}/{len(train_dataloader.dataset)}"
                 f" ({100. * i / len(train_dataloader):.0f}%)]"
                 f'\tLoss: {out_criterion["loss"].item():.3f} |'
-                f'\tMSE loss: {out_criterion["mse_loss"].item():.3f} |'
+                f'\tMSE loss: {out_criterion["mse_loss"].item():.8f} |'
                 f'\tPSNR: {out_criterion["psnr"].item():.3f} |'  # 仅当metric为mse时
                 f'\tBpp loss: {out_criterion["bpp_loss"].item():.2f} |'
                 f"\tAux loss: {aux_loss.item():.2f}"

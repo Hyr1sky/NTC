@@ -1,11 +1,13 @@
-from models.google_models import FactorizedPrior, FactorizedPriorReLU, ScaleHyperprior, MeanScaleHyperprior
+from models.google_models import FactorizedPrior, FactorizedPriorReLU, ScaleHyperprior, MeanScaleHyperprior, Minnen2020, JointAutoregressiveHierarchicalPriors
 
 model_architectures = {
     "bmshj2018-factorized": FactorizedPrior,
     "bmshj2018_factorized_relu": FactorizedPriorReLU,
     "bmshj2018-hyperprior": ScaleHyperprior,
-    "mbt2018-mean": MeanScaleHyperprior
-    #"minnen2020": 
+    "mbt2018-mean": MeanScaleHyperprior,
+    "minnen2020": MeanScaleHyperprior,
+    "minnen2020-LRP": Minnen2020,
+    "mbt2018": JointAutoregressiveHierarchicalPriors,
 }
 
 
@@ -39,7 +41,47 @@ cfgs = {
         6: (192, 320),
         7: (192, 320),
         8: (192, 320),
-    }
+    },
+    "minnen2020": {
+        1: (128, 192),
+        2: (128, 192),
+        3: (128, 192),
+        4: (128, 192),
+        5: (128, 192),
+        6: (192, 320),
+        7: (192, 320),
+        8: (192, 320),
+    },
+    "minnen2020-LRP": {
+        1: (128, 192),
+        2: (128, 192),
+        3: (128, 192),
+        4: (128, 192),
+        5: (128, 192),
+        6: (192, 320),
+        7: (192, 320),
+        8: (192, 320),
+    },
+    "mbt2018-mean": {
+        1: (128, 192),
+        2: (128, 192),
+        3: (128, 192),
+        4: (128, 192),
+        5: (128, 192),
+        6: (192, 320),
+        7: (192, 320),
+        8: (192, 320),
+    },
+    "mbt2018": {
+        1: (128, 192),
+        2: (128, 192),
+        3: (128, 192),
+        4: (128, 192),
+        5: (128, 192),
+        6: (192, 320),
+        7: (192, 320),
+        8: (192, 320),
+    },
 }
 
 
@@ -127,3 +169,59 @@ def bmshj2018_hyperprior(
     return _load_model(
         "bmshj2018-hyperprior", metric, quality, pretrained, progress, **kwargs
     )
+
+
+def minnen2020(
+    quality, metric="mse", pretrained=False, progress=True, **kwargs
+):
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality < 1 or quality > 8:
+        raise ValueError(f'Invalid quality "{quality}", should be between (1, 8)')
+
+    return _load_model(
+        "minnen2020", metric, quality, pretrained, progress, **kwargs
+    )
+
+
+def minnen2020_LRP(
+    quality, metric="mse", pretrained=False, progress=True, **kwargs
+):
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality < 1 or quality > 8:
+        raise ValueError(f'Invalid quality "{quality}", should be between (1, 8)')
+
+    return _load_model(
+        "minnen2020-LRP", metric, quality, pretrained, progress, **kwargs
+)
+
+
+def mbt2018_mean(
+    quality, metric="mse", pretrained=False, progress=True, **kwargs
+):
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality < 1 or quality > 8:
+        raise ValueError(f'Invalid quality "{quality}", should be between (1, 8)')
+
+    return _load_model(
+        "mbt2018-mean", metric, quality, pretrained, progress, **kwargs
+)
+
+
+def mbt2018(
+    quality, metric="mse", pretrained=False, progress=True, **kwargs
+):
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality < 1 or quality > 8:
+        raise ValueError(f'Invalid quality "{quality}", should be between (1, 8)')
+
+    return _load_model(
+        "mbt2018", metric, quality, pretrained, progress, **kwargs
+)
