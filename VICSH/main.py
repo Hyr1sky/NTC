@@ -48,9 +48,11 @@ image_models = {
     "bmshj2018-factorized": bmshj2018_factorized,
     "bmshj2018-factorized-relu": bmshj2018_factorized_relu,
     "bmshj2018-hyperprior": bmshj2018_hyperprior,
+    "mbt2018_mean": mbt2018_mean,
+
+    # Additional
     "minnen2020": minnen2020,
     "minnen2020_LRP": minnen2020_LRP,
-    "mbt2018_mean": mbt2018_mean,
     "mbt2018": mbt2018,
 }
 
