@@ -2,6 +2,8 @@
 *.zip
 *.tar
 *.rar
+*.n1
+*.log
 
 train_1
 CompressAI-master
